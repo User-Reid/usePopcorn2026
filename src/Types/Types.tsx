@@ -1,3 +1,5 @@
+import type React from "react";
+
 export type MovieDataType = {
   imdbID: string;
   Title: string;
@@ -16,16 +18,15 @@ export type WatchedDataType = {
 };
 
 export type NavigationProps = {
-  movies: MovieDataType[];
+  children: React.ReactNode;
 };
 
 export type MainProps = {
-  movies: MovieDataType[];
-  tempWatchedData: WatchedDataType[];
+  children: React.ReactNode;
 };
 
 export type MovieListBoxProps = {
-  movies: MovieDataType[];
+  children: React.ReactNode;
 };
 
 export type MovieListProps = {
@@ -37,7 +38,7 @@ export type MovieSummaryProps = {
 };
 
 export type WatchedMoviesBoxProps = {
-  tempWatchedData: WatchedDataType[];
+  children: React.ReactNode;
 };
 
 export type WatchedMovieListProps = {

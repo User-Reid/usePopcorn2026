@@ -1,12 +1,7 @@
 import { useState } from "react";
-import type { WatchedMoviesBoxProps, WatchedDataType } from "../Types/Types";
-import MovieSummary from "./MovieSummary";
-import WatchedMovieList from "./WatchedMovieList";
+import type { WatchedMoviesBoxProps } from "../Types/Types";
 
-export default function WatchedMoviesBox({
-  tempWatchedData,
-}: WatchedMoviesBoxProps) {
-  const [watched, setWatched] = useState<WatchedDataType[]>(tempWatchedData);
+export default function WatchedMoviesBox({ children }: WatchedMoviesBoxProps) {
   const [isOpen2, setIsOpen2] = useState<boolean>(true);
 
   return (
@@ -17,12 +12,7 @@ export default function WatchedMoviesBox({
       >
         {isOpen2 ? "–" : "+"}
       </button>
-      {isOpen2 && (
-        <>
-          <MovieSummary watched={watched} />
-          <WatchedMovieList watched={watched} />
-        </>
-      )}
+      {isOpen2 && <>{children}</>}
     </div>
   );
 }

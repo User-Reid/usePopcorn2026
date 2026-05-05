@@ -1,8 +1,7 @@
 import { useState } from "react";
 import type { MovieListBoxProps } from "../Types/Types";
-import MovieList from "./MovieList";
 
-export default function MovieListBox({ movies }: MovieListBoxProps) {
+export default function MovieListBox({ children }: MovieListBoxProps) {
   const [isOpen1, setIsOpen1] = useState<boolean>(true);
 
   return (
@@ -13,7 +12,7 @@ export default function MovieListBox({ movies }: MovieListBoxProps) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }

@@ -2,6 +2,14 @@ import Navigation from "./Components/Navigation";
 import { useState } from "react";
 import type { MovieDataType, WatchedDataType } from "./Types/Types";
 import Main from "./Components/Main";
+import Logo from "./Components/Logo";
+import SearchBar from "./Components/SearchBar";
+import MovieResults from "./Components/MovieResults";
+import MovieListBox from "./Components/MovieListBox";
+import MovieList from "./Components/MovieList";
+import WatchedMoviesBox from "./Components/WatchedMoviesBox";
+import MovieSummary from "./Components/MovieSummary";
+import WatchedMovieList from "./Components/WatchedMovieList";
 
 const tempMovieData: MovieDataType[] = [
   {
@@ -50,16 +58,26 @@ const tempWatchedData: WatchedDataType[] = [
   },
 ];
 
-const average = (arr: number[]) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-
 export default function App() {
   const [movies, setMovies] = useState<MovieDataType[]>(tempMovieData);
+  const [watched, setWatched] = useState<WatchedDataType[]>(tempWatchedData);
 
   return (
     <>
-      <Navigation movies={movies} />
-      <Main movies={movies} tempWatchedData={tempWatchedData} />
+      <Navigation>
+        <Logo />
+        <SearchBar />
+        <MovieResults movies={movies} />
+      </Navigation>
+      <Main>
+        <MovieListBox>
+          <MovieList movies={movies} />
+        </MovieListBox>
+        <WatchedMoviesBox>
+          <MovieSummary watched={watched} />
+          <WatchedMovieList watched={watched} />
+        </WatchedMoviesBox>
+      </Main>
     </>
   );
 }
