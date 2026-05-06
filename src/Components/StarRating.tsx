@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Star from "./Star";
+
 type StarRatingProps = {
   maxRating?: number;
 };
@@ -35,14 +38,24 @@ const textStyle: TextStyleType = {
 };
 
 export default function StarRating({ maxRating = 5 }: StarRatingProps) {
+  const [starRating, setStarRating] = useState<number | null>(null);
+
+  function handleRate(i: number): void {
+    setStarRating(i);
+  }
+
   return (
     <div style={containerStyle}>
       <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
-          <span key={i}>⭐{i + 1}</span>
+          <Star
+            key={i}
+            handleRate={() => handleRate(i + 1)}
+            full={(starRating ?? 0) >= i + 1}
+          />
         ))}
       </div>
-      <p style={textStyle}>10</p>
+      <p style={textStyle}>{starRating ?? ""}</p>
     </div>
   );
 }
