@@ -2,7 +2,6 @@ import Navigation from "./Components/Navigation";
 import { useState } from "react";
 import type { MovieDataType, WatchedDataType } from "./Types/Types";
 import Main from "./Components/Main";
-import Logo from "./Components/Logo";
 import SearchBar from "./Components/SearchBar";
 import MovieResults from "./Components/MovieResults";
 import MovieListBox from "./Components/MovieListBox";
@@ -65,7 +64,6 @@ export default function App() {
   return (
     <>
       <Navigation>
-        <Logo />
         <SearchBar />
         <MovieResults movies={movies} />
       </Navigation>
