@@ -56,3 +56,7 @@ export type WatchedMovieProps = {
 export type MovieResultsProps = {
   movies: MovieDataType[];
 };
+
+export type BoxProps = {
+  children: React.ReactNode;
+};

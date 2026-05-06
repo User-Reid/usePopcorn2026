@@ -4,11 +4,10 @@ import type { MovieDataType, WatchedDataType } from "./Types/Types";
 import Main from "./Components/Main";
 import SearchBar from "./Components/SearchBar";
 import MovieResults from "./Components/MovieResults";
-import MovieListBox from "./Components/MovieListBox";
 import MovieList from "./Components/MovieList";
-import WatchedMoviesBox from "./Components/WatchedMoviesBox";
 import MovieSummary from "./Components/MovieSummary";
 import WatchedMovieList from "./Components/WatchedMovieList";
+import Box from "./Components/Box";
 
 const tempMovieData: MovieDataType[] = [
   {
@@ -67,14 +66,16 @@ export default function App() {
         <SearchBar />
         <MovieResults movies={movies} />
       </Navigation>
+
       <Main>
-        <MovieListBox>
+        <Box>
           <MovieList movies={movies} />
-        </MovieListBox>
-        <WatchedMoviesBox>
+        </Box>
+
+        <Box>
           <MovieSummary watched={watched} />
           <WatchedMovieList watched={watched} />
-        </WatchedMoviesBox>
+        </Box>
       </Main>
     </>
   );
