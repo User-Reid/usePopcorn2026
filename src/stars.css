@@ -1,0 +1,15 @@
+.starsFull {
+  fill: #ffd700;
+  stroke: #000;
+  transition: fill 0.2s ease;
+}
+
+.starsEmpty:hover {
+  fill: #ffd700;
+}
+
+.starsEmpty {
+  fill: none;
+  stroke: #000;
+  transition: fill 0.2s ease;
+}

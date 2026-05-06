@@ -39,6 +39,7 @@ const textStyle: TextStyleType = {
 
 export default function StarRating({ maxRating = 5 }: StarRatingProps) {
   const [starRating, setStarRating] = useState<number | null>(null);
+  const [tempRating, setTempRating] = useState<number | null>(null);
 
   function handleRate(i: number): void {
     setStarRating(i);
@@ -51,11 +52,13 @@ export default function StarRating({ maxRating = 5 }: StarRatingProps) {
           <Star
             key={i}
             handleRate={() => handleRate(i + 1)}
-            full={(starRating ?? 0) >= i + 1}
+            full={tempRating ? tempRating >= i + 1 : (starRating ?? 0) >= i + 1}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(null)}
           />
         ))}
       </div>
-      <p style={textStyle}>{starRating ?? ""}</p>
+      <p style={textStyle}>{tempRating || starRating || null}</p>
     </div>
   );
 }
