@@ -5,11 +5,12 @@ import "./stars.css";
 import App from "./App.tsx";
 import StarRating from "./Components/StarRating.tsx";
 import Test from "./Components/Test.tsx";
+import ContentBox from "./Components/ContentBox.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     {/* <App /> */}
-    <StarRating
+    {/* <StarRating
       maxRating={5}
       color="blue"
       size={70}
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
     <StarRating maxRating={10} size={20} color="red" defaultRating={3} />
     <StarRating maxRating={8} size={30} color="green" />
     <StarRating />
-    <Test />
+    <Test /> */}
+    <ContentBox />
   </StrictMode>,
 );
