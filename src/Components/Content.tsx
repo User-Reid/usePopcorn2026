@@ -3,22 +3,27 @@ import type { ContentProps } from "./ContentBox";
 
 export default function Content({
   maxPreviewLength,
-  container,
   children,
+  defaultOpen = false,
+  expandButtonText = "Show More",
+  collapseButtonText = "Show Less",
+  buttonColor = "blue",
 }: ContentProps) {
-  const [previewLength, setPreviewLength] = useState<number | null>(
-    maxPreviewLength ?? null,
-  );
-  const [showMore, setShowMore] = useState<boolean>(false);
+  const [showMore, setShowMore] = useState<boolean>(defaultOpen);
+  const words = (children as string).split(" ");
+  const displayed =
+    !showMore && maxPreviewLength
+      ? words.slice(0, maxPreviewLength).join(" ") + "..."
+      : children;
 
   return (
     <div>
-      <span>{children}</span>
+      <span>{displayed}</span>
       <span
         onClick={() => setShowMore((prev) => !prev)}
-        style={{ color: "orange", cursor: "pointer" }}
+        style={{ color: buttonColor, cursor: "pointer" }}
       >
-        {showMore ? " Show Less..." : " Show More..."}
+        {showMore ? ` ${collapseButtonText}...` : ` ${expandButtonText}...`}
       </span>
     </div>
   );
