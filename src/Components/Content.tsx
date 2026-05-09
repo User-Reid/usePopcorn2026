@@ -18,7 +18,7 @@ export default function Content({
         onClick={() => setShowMore((prev) => !prev)}
         style={{ color: "orange", cursor: "pointer" }}
       >
-        {showMore ? " Show less..." : " Show More..."}
+        {showMore ? " Show Less..." : " Show More..."}
       </span>
     </div>
   );
