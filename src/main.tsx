@@ -1,15 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-// import "./index.css";
+import "./index.css";
 import "./stars.css";
 import App from "./App.tsx";
-import StarRating from "./Components/StarRating.tsx";
-import Test from "./Components/Test.tsx";
-import ContentBox from "./Components/ContentBox.tsx";
+// import StarRating from "./Components/StarRating.tsx";
+// import Test from "./Components/Test.tsx";
+// import ContentBox from "./Components/ContentBox.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {/* <App /> */}
+    <App />
     {/* <StarRating
       maxRating={5}
       color="blue"
@@ -21,6 +21,6 @@ createRoot(document.getElementById("root")!).render(
     <StarRating maxRating={8} size={30} color="green" />
     <StarRating />
     <Test /> */}
-    <ContentBox />
+    {/* <ContentBox /> */}
   </StrictMode>,
 );

@@ -60,3 +60,12 @@ export type MovieResultsProps = {
 export type BoxProps = {
   children: React.ReactNode;
 };
+
+export type SearchBarProps = {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export type ErrorMessageProps = {
+  message: string;
+};
