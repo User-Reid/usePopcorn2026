@@ -31,6 +31,8 @@ export type MovieListBoxProps = {
 
 export type MovieListProps = {
   movies: MovieDataType[];
+  setSelectedMovieId: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedMovieId: string | null;
 };
 
 export type MovieSummaryProps = {
@@ -47,6 +49,8 @@ export type WatchedMovieListProps = {
 
 export type MovieProps = {
   movie: MovieDataType;
+  setSelectedMovieId: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedMovieId: string | null;
 };
 
 export type WatchedMovieProps = {
@@ -68,4 +72,30 @@ export type SearchBarProps = {
 
 export type ErrorMessageProps = {
   message: string;
+};
+
+export type MovieDetailsProps = {
+  selectedMovieId: string | null;
+};
+
+export type MovieDetails = {
+  Title: string;
+  Rated: string;
+  Released: string;
+  Runtime: string;
+  Genre: string;
+  Director: string;
+  Writer: string;
+  Actors: string;
+  Plot: string;
+  Language: string;
+  Country: string;
+  Awards: string;
+  Poster: string;
+  Ratings: string[];
+  Type: string;
+  BoxOffice: string;
+  Production: string;
+  Website: string;
+  Response: string;
 };
