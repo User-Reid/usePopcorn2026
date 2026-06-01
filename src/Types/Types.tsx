@@ -5,6 +5,8 @@ export type MovieDataType = {
   Title: string;
   Year: string;
   Poster: string;
+  Runtime: string;
+  imdbRating: string;
 };
 
 export type WatchedDataType = {
@@ -12,8 +14,8 @@ export type WatchedDataType = {
   Title: string;
   Year: string;
   Poster: string;
-  runtime: number;
-  imdbRating: number;
+  Runtime: string;
+  imdbRating: string;
   userRating: number;
 };
 
@@ -45,6 +47,7 @@ export type WatchedMoviesBoxProps = {
 
 export type WatchedMovieListProps = {
   watched: WatchedDataType[];
+  setWatched: React.Dispatch<React.SetStateAction<WatchedDataType[]>>;
 };
 
 export type MovieProps = {
@@ -55,6 +58,8 @@ export type MovieProps = {
 
 export type WatchedMovieProps = {
   movie: WatchedDataType;
+  watched: WatchedDataType[];
+  setWatched: React.Dispatch<React.SetStateAction<WatchedDataType[]>>;
 };
 
 export type MovieResultsProps = {
@@ -76,6 +81,9 @@ export type ErrorMessageProps = {
 
 export type MovieDetailsProps = {
   selectedMovieId: string | null;
+  setSelectedMovieId: React.Dispatch<React.SetStateAction<null | string>>;
+  setWatched: React.Dispatch<React.SetStateAction<WatchedDataType[]>>;
+  watched: WatchedDataType[];
 };
 
 export type MovieDetails = {
@@ -93,6 +101,8 @@ export type MovieDetails = {
   Awards: string;
   Poster: string;
   Ratings: string[];
+  imdbRating: string;
+  imdbID: string;
   Type: string;
   BoxOffice: string;
   Production: string;

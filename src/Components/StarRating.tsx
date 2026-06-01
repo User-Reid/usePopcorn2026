@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Star from "./Star";
 
 type StarRatingProps = {
@@ -9,6 +9,8 @@ type StarRatingProps = {
   messages?: string[];
   defaultRating?: number;
   onSetRating?: (rating: number) => void;
+  starRating: number | null;
+  setStarRating: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 type ContainerStyleType = {
@@ -46,12 +48,10 @@ export default function StarRating({
   size = 48,
   className,
   messages = [],
-  defaultRating,
   onSetRating,
+  starRating,
+  setStarRating,
 }: StarRatingProps) {
-  const [starRating, setStarRating] = useState<number | null>(
-    defaultRating ?? null,
-  );
   const [tempRating, setTempRating] = useState<number | null>(null);
 
   function handleRate(i: number): void {

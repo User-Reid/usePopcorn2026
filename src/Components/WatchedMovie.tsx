@@ -1,6 +1,12 @@
 import type { WatchedMovieProps } from "../Types/Types";
 
-export default function WatchedMovie({ movie }: WatchedMovieProps) {
+export default function WatchedMovie({ movie, setWatched }: WatchedMovieProps) {
+  function handleRemoveWatched(movieToRemove: string): void {
+    setWatched((prev) =>
+      prev.filter((watchedMovie) => watchedMovie.imdbID !== movieToRemove),
+    );
+  }
+
   return (
     <li key={movie.imdbID}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
@@ -16,8 +22,14 @@ export default function WatchedMovie({ movie }: WatchedMovieProps) {
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime} min</span>
+          <span>{movie.Runtime}</span>
         </p>
+        <button
+          className="btn-delete"
+          onClick={() => handleRemoveWatched(movie.imdbID)}
+        >
+          X
+        </button>
       </div>
     </li>
   );

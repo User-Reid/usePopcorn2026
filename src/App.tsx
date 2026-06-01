@@ -64,12 +64,10 @@ const key: string = "f84fc31d";
 export default function App() {
   const [movies, setMovies] = useState<MovieDataType[]>([]);
   const [watched, setWatched] = useState<WatchedDataType[]>([]);
-  const [query, setQuery] = useState<string>("interstellar");
+  const [query, setQuery] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(
-    "tt0816692",
-  );
+  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
 
   useEffect(
     function () {
@@ -121,11 +119,16 @@ export default function App() {
 
         <Box>
           {selectedMovieId ? (
-            <MovieDetails selectedMovieId={selectedMovieId} />
+            <MovieDetails
+              setSelectedMovieId={setSelectedMovieId}
+              selectedMovieId={selectedMovieId}
+              setWatched={setWatched}
+              watched={watched}
+            />
           ) : (
             <>
               <MovieSummary watched={watched} />
-              <WatchedMovieList watched={watched} />
+              <WatchedMovieList watched={watched} setWatched={setWatched} />
             </>
           )}
         </Box>
