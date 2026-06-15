@@ -44,6 +44,10 @@ export default function MovieDetails({
         userRating: starRating ?? 0,
       };
 
+      localStorage.setItem(
+        "watched",
+        JSON.stringify([...watched, watchedMovie]),
+      );
       setWatched((prev) => [...prev, watchedMovie]);
       setSelectedMovieId(null);
     }

@@ -58,7 +58,6 @@ export type MovieProps = {
 
 export type WatchedMovieProps = {
   movie: WatchedDataType;
-  watched: WatchedDataType[];
   setWatched: React.Dispatch<React.SetStateAction<WatchedDataType[]>>;
 };
 
