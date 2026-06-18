@@ -1,12 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { SearchBarProps } from "../Types/Types";
 
 export default function SearchBar({ query, setQuery }: SearchBarProps) {
+  const inputElement = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
-    const el = document.querySelector(".search");
-    console.log(el);
-    el.focus();
-  }, []);
+    function handleEnterDown(e: KeyboardEvent) {
+      if (e.code === "Enter") {
+        if (document.activeElement === inputElement.current) {
+          return;
+        }
+        inputElement.current?.focus();
+        setQuery("");
+      }
+    }
+
+    document.addEventListener("keydown", handleEnterDown);
+    return () => document.removeEventListener("keydown", handleEnterDown);
+  }, [setQuery]);
 
   return (
     <input
@@ -15,6 +26,7 @@ export default function SearchBar({ query, setQuery }: SearchBarProps) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputElement}
     />
   );
 }

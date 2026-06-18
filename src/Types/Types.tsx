@@ -1,3 +1,4 @@
+import type { RefObject } from "react";
 import type React from "react";
 
 export type MovieDataType = {
@@ -17,6 +18,7 @@ export type WatchedDataType = {
   Runtime: string;
   imdbRating: string;
   userRating: number;
+  countRatingDecisions: RefObject<number>;
 };
 
 export type NavigationProps = {

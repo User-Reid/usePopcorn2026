@@ -1,6 +1,6 @@
 import Navigation from "./Components/Navigation";
 import { useEffect, useState } from "react";
-import type { MovieDataType, WatchedDataType } from "./Types/Types";
+import type { WatchedDataType } from "./Types/Types";
 import Main from "./Components/Main";
 import SearchBar from "./Components/SearchBar";
 import MovieResults from "./Components/MovieResults";
@@ -11,19 +11,21 @@ import Box from "./Components/Box";
 import Loader from "./Components/Loader";
 import ErrorMessage from "./Components/ErrorMessage";
 import MovieDetails from "./Components/MovieDetails";
-
-const key: string = "e91d2696";
+import { useFetchMovies } from "./Hooks/useFetchMovies";
 
 export default function App() {
-  const [movies, setMovies] = useState<MovieDataType[]>([]);
   const [watched, setWatched] = useState<WatchedDataType[]>(() => {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue ?? "[]");
   });
   const [query, setQuery] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
+
+  const { isLoading, movies, error } = useFetchMovies(
+    query,
+    selectedMovieId,
+    setSelectedMovieId,
+  );
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -37,58 +39,6 @@ export default function App() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedMovieId]);
-
-  useEffect(
-    function () {
-      if (query.length < 3) {
-        return;
-      }
-
-      const controller: AbortController = new AbortController();
-
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-          setError("");
-
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${key}&s=${query}`,
-            { signal: controller.signal },
-          );
-
-          if (selectedMovieId) {
-            setSelectedMovieId(null);
-          }
-
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-
-          const data = await res.json();
-          if (data.Response === "False") throw new Error("Movie not found");
-
-          setMovies(data.Search);
-          setError("");
-          // console.log(data.Search);
-        } catch (err) {
-          const error = err as Error;
-          console.error((err as Error).message);
-
-          if (error.name !== "AbortError") {
-            setError(error.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-
-      fetchMovies();
-
-      return function (): void {
-        controller.abort();
-      };
-    },
-    [query],
-  );
 
   useEffect(() => {
     localStorage.setItem("watched", JSON.stringify(watched));

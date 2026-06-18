@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type {
   MovieDetails,
   MovieDetailsProps,
@@ -16,6 +16,11 @@ export default function MovieDetails({
   const [selectedMovie, setSelectedMovie] = useState<MovieDetails | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [starRating, setStarRating] = useState<number | null>(null);
+  const countRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (starRating) countRef.current++;
+  }, [starRating]);
 
   function handleAddWatchedMovie(movie: MovieDetails): void {
     const alreadyWatched = watched.some(
@@ -42,6 +47,7 @@ export default function MovieDetails({
         Runtime: movie.Runtime,
         imdbRating: movie.imdbRating,
         userRating: starRating ?? 0,
+        countRatingDecisions: countRef,
       };
 
       localStorage.setItem(
