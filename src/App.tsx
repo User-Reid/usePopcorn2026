@@ -1,6 +1,5 @@
 import Navigation from "./Components/Navigation";
 import { useEffect, useState } from "react";
-import type { WatchedDataType } from "./Types/Types";
 import Main from "./Components/Main";
 import SearchBar from "./Components/SearchBar";
 import MovieResults from "./Components/MovieResults";
@@ -12,12 +11,10 @@ import Loader from "./Components/Loader";
 import ErrorMessage from "./Components/ErrorMessage";
 import MovieDetails from "./Components/MovieDetails";
 import { useFetchMovies } from "./Hooks/useFetchMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 export default function App() {
-  const [watched, setWatched] = useState<WatchedDataType[]>(() => {
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue ?? "[]");
-  });
+  const [watched, setWatched] = useLocalStorageState([], "watched");
   const [query, setQuery] = useState<string>("");
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
 
@@ -39,10 +36,6 @@ export default function App() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedMovieId]);
-
-  useEffect(() => {
-    localStorage.setItem("watched", JSON.stringify(watched));
-  }, [watched]);
 
   return (
     <>
