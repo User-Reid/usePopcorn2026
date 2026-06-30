@@ -1,23 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import type { SearchBarProps } from "../Types/Types";
+import { useKeyPress } from "../useKeyPress";
 
 export default function SearchBar({ query, setQuery }: SearchBarProps) {
   const inputElement = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    function handleEnterDown(e: KeyboardEvent) {
-      if (e.code === "Enter") {
-        if (document.activeElement === inputElement.current) {
-          return;
-        }
-        inputElement.current?.focus();
-        setQuery("");
-      }
+  useKeyPress("Enter", () => {
+    if (document.activeElement === inputElement.current) {
+      return;
     }
-
-    document.addEventListener("keydown", handleEnterDown);
-    return () => document.removeEventListener("keydown", handleEnterDown);
-  }, [setQuery]);
+    inputElement.current?.focus();
+    setQuery("");
+  });
 
   return (
     <input

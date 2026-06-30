@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import type { WatchedDataType } from "./Types/Types";
+import { useState } from "react";
 
 export function useLocalStorageState(
   initialState: WatchedDataType[],
   key: string,
-) {
-  const [value, setValue] = useState<WatchedDataType[]>(() => {
+): [
+  WatchedDataType[],
+  React.Dispatch<React.SetStateAction<WatchedDataType[]>>,
+] {
+  const [value, setValue] = useState(() => {
     const storedValue = localStorage.getItem(key);
-    return storedValue
-      ? (JSON.parse(storedValue) as WatchedDataType[])
-      : initialState;
+    return storedValue ? JSON.parse(storedValue) : initialState;
   });
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
-  }, [value, key]);
+  }, [key, value]);
 
-  return [value, setValue] as const;
+  return [value, setValue];
 }

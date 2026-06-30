@@ -1,5 +1,5 @@
 import Navigation from "./Components/Navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Main from "./Components/Main";
 import SearchBar from "./Components/SearchBar";
 import MovieResults from "./Components/MovieResults";
@@ -12,30 +12,24 @@ import ErrorMessage from "./Components/ErrorMessage";
 import MovieDetails from "./Components/MovieDetails";
 import { useFetchMovies } from "./Hooks/useFetchMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
+import { useKeyPress } from "./useKeyPress";
 
 export default function App() {
   const [watched, setWatched] = useLocalStorageState([], "watched");
   const [query, setQuery] = useState<string>("");
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
-
   const { isLoading, movies, error } = useFetchMovies(
     query,
     selectedMovieId,
     setSelectedMovieId,
   );
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.code === "Escape" && selectedMovieId) {
-        setSelectedMovieId(null);
-        setQuery("");
-      }
+  useKeyPress("Escape", () => {
+    if (selectedMovieId) {
+      setSelectedMovieId(null);
+      setQuery("");
     }
-    document.addEventListener("keydown", handleKeyDown);
-    return function () {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedMovieId]);
+  });
 
   return (
     <>
